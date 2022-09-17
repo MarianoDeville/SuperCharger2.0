@@ -1,12 +1,14 @@
 package modelo;
 
+import objetoAccesoDatos.ConsultarAgendaDAO;
+
 public class DtosConsultarAgenda {
 	
 	private String dias[];
 	private String meses[];
-	private String especialidades[];
 	private Object tabla[][];
 	private String nombreApellido;
+	private ConsultarAgendaDAO agenda;
 	
 	public String [] getDias(int mes) {
 		
@@ -32,26 +34,31 @@ public class DtosConsultarAgenda {
 	public String [] getMeses() {
 		
 		meses = new String[] {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
-		
 		return meses;
 	}
 	
 	public String [] getEspecialidades() {
 		
-		especialidades = new String[] {"Frenos", "Electricidad", "Tren delantero y amortiguación", "Encendido y carburación", "Chapa y pintura", "Mecánica general"};
-		
-		return especialidades;
+		agenda = new ConsultarAgendaDAO();
+		String especialidades [][] = agenda.areasTrabajo("nombreArea", "Taller");
+		String respuesta[] = new String [especialidades.length];
+
+		for(int i=0 ; i < especialidades.length ; i++) {
+			
+			respuesta[i] = especialidades[i][2];
+		}
+		return respuesta;
 	}
 	
 	public Object [][] getTabla(String especialidad) {
-		
+
 		tabla = new Object[9][3];
 		
 		for(int i = 0 ;i < 9 ;i++) {
 			
 			tabla[i][0] = i + 8 + ":00";
 			
-			if(especialidad == "Frenos")
+			if(especialidad.equals("Frenos"))
 				
 				tabla[i][1] = "Libre";
 			else
