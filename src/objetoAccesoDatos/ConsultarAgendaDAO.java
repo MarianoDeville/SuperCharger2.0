@@ -26,7 +26,7 @@ public class ConsultarAgendaDAO extends Conexion {
 	public String [][] areasTrabajo(String campo, String valor)  {
 		
 		String respuesta[][] = null;
-		String armoStatement = "SELECT * FROM areatrabajo WHERE " + campo + " = '" + valor + "'";
+		String armoStatement = "SELECT * FROM areatrabajo WHERE " + campo + " = '" + valor + "' GROUP BY especialidad";
 
 		try {
 
